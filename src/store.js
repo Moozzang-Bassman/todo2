@@ -23,11 +23,14 @@ let user = createSlice({
             state[action.payload].isDone = !state[action.payload].isDone
         },
         deleteCardBox(state, action) {
-            state.filter((item) => {
+            state = state.filter((item) => {
                 if (item.id !== action.payload) {
-                    console.log(current(item))
-                }
+                    return {
+                        ...item
+                    }
+                } console.log(current(item))
             })
+
         },
         addCardBox(state, action) {
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const DetailContainer = styled.div`
@@ -33,27 +33,31 @@ const DetailButton = styled.button`
 
 function Detail() {
 
-    let a = useSelector((state) => state.user);
 
-    const navigate = useNavigate();
+  let state = useSelector((state) => state.user);
 
-    // const matchItem = item.find((x) => {
-    //     return x.id === +id;
-    // })
+  const navigate = useNavigate();
+
+  // const matchItem = item.find((x) => {
+  //     return x.id === +id;
+  // })
+  const params = useParams();
 
 
-    return (
+  return (
+    < DetailContainer >
+      <DetailBox>
+        ID:0 <DetailButton onClick={() => {
+          navigate('/');
+        }}>이전으로</DetailButton>
+        <h2>ㅎㅎㅎ</h2>
+        <p>헤헤</p>
+      </DetailBox>
+    </DetailContainer >
 
-        < DetailContainer >
-            <DetailBox>
-                ID:0 <DetailButton onClick={() => {
-                    navigate('/');
-                }}>이전으로</DetailButton>
-                <h2>리액트</h2>
-                <p>리액트를 배워봅시다</p>
-            </DetailBox>
-        </DetailContainer >
-    )
+
+
+  )
 }
 
 export default Detail;
