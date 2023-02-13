@@ -101,60 +101,60 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/detail' element={<Detail></Detail>}></Route>
-      </Routes>
-      <StBox>
-        <StP>제목</StP><StInputBox value={title} onChange={(e) => {
-          setTitle(e.target.value)
-        }} width='200px'></StInputBox>
-        <StP>내용</StP><StInputBox value={desc} onChange={(e) => {
-          setDesc(e.target.value)
-        }} width='200px'></StInputBox>
-        <StButton onClick={() => {
+        <Route path='/detail/:id' element={<Detail></Detail>}></Route>
+        <Route path='/' element={<>
+          <StBox>
+            <StP>제목</StP><StInputBox value={title} onChange={(e) => {
+              setTitle(e.target.value)
+            }} width='200px'></StInputBox>
+            <StP>내용</StP><StInputBox value={desc} onChange={(e) => {
+              setDesc(e.target.value)
+            }} width='200px'></StInputBox>
+            <StButton onClick={() => {
 
-          if (!title || !desc) {
-            alert('공백발생')
-          } else {
-            dispatch(addCardBox({
+              if (!title || !desc) {
+                alert('공백발생')
+              } else {
+                dispatch(addCardBox({
 
-              title: title,
-              body: desc,
-              isDone: false
-            }))
-            setDesc('');
-            setTitle('');
-          }
-        }
-        }
-        >안녕하쇼</StButton>
-      </StBox>
-      <StInnerBox>
+                  title: title,
+                  body: desc,
+                  isDone: false
+                }))
+                setDesc('');
+                setTitle('');
+              }
+            }
+            }
+            >안녕하쇼</StButton>
+          </StBox>
+          <StInnerBox>
 
-        <h2>Working..🏋🏿‍♂️</h2>
-        <CardContainer>
-          {state.user.filter((item) => {
-            return (item.isDone === false)
-          }).map((item) => {
-            return <CardBox key={item.id}>
-              <StSpan onClick={() => {
-                navigate('/detail')
+            <h2>Working..🏋🏿‍♂️</h2>
+            <CardContainer>
+              {state.user.filter((item) => {
+                return (item.isDone === false)
+              }).map((item) => {
+                return <CardBox key={item.id}>
+                  <StSpan onClick={() => {
+                    navigate(`/detail/${item.id}`)
 
-              }}>상세보기</StSpan>
-              <h2>{item.title}</h2>
-              <p>{item.body}</p>
-              <CardWrap>
-                <CardButton onClick={() => {
-                  dispatch(deleteCardBox(item.id))
-                }} bodercolor='red'>삭제하기</CardButton>
-                <CardButton bodercolor='green' onClick={() => {
+                  }}>상세보기</StSpan>
+                  <h2>{item.title}</h2>
+                  <p>{item.body}</p>
+                  <CardWrap>
+                    <CardButton onClick={() => {
+                      dispatch(deleteCardBox(item.id))
+                    }} bodercolor='red'>삭제하기</CardButton>
+                    <CardButton bodercolor='green' onClick={() => {
 
-                  dispatch(changeIsDone(item.id))
-                }}>{item.isDone === false ? '완료하기' : '취소하기'}</CardButton>
-              </CardWrap>
-            </CardBox>
-          })}
+                      dispatch(changeIsDone(item.id))
+                    }}>{item.isDone === false ? '완료하기' : '취소하기'}</CardButton>
+                  </CardWrap>
+                </CardBox>
+              })}
 
-          {/* {a.user.isDone === false ? <CardBox>
+              {/* {a.user.isDone === false ? <CardBox>
                         <StSpan onClick={() => {
                             navigate('/detail')
                         }}>상세보기</StSpan>
@@ -169,7 +169,7 @@ function App() {
                     </CardBox>
                         : null} */}
 
-          {/* <CardBox>
+              {/* <CardBox>
                         <StSpan onClick={() => {
                             navigate('/detail')
                         }}>상세보기</StSpan>
@@ -185,32 +185,35 @@ function App() {
 
 
 
-        </CardContainer>
+            </CardContainer>
 
-        <h2>Done..!🛀🏿</h2>
-        <CardContainer>
-          {state.user.filter((item) => {
-            return (item.isDone === true)
-          }).map((item) => {
-            return <CardBox>
-              <StSpan onClick={() => {
-                navigate('/detail')
-              }}>상세보기</StSpan>
-              <h2>{item.title}</h2>
-              <p>{item.body}</p>
-              <CardWrap>
-                <CardButton bodercolor='red'>삭제하기</CardButton>
-                <CardButton bodercolor='green' onClick={() => {
+            <h2>Done..!🛀🏿</h2>
+            <CardContainer>
+              {state.user.filter((item) => {
+                return (item.isDone === true)
+              }).map((item) => {
+                return <CardBox key={item.id}>
+                  <StSpan onClick={() => {
+                    navigate(`/detail/${item.id}`)
+                  }}>상세보기</StSpan>
+                  <h2>{item.title}</h2>
+                  <p>{item.body}</p>
+                  <CardWrap>
+                    <CardButton bodercolor='red'>삭제하기</CardButton>
+                    <CardButton bodercolor='green' onClick={() => {
 
-                  dispatch(changeIsDone(item.id))
-                }}>{item.isDone === false ? '완료하기' : '취소하기'}</CardButton>
-              </CardWrap>
-            </CardBox>
-          })}
+                      dispatch(changeIsDone(item.id))
+                    }}>{item.isDone === false ? '완료하기' : '취소하기'}</CardButton>
+                  </CardWrap>
+                </CardBox>
+              })}
 
 
-        </CardContainer>
-      </StInnerBox></>
+            </CardContainer>
+          </StInnerBox>
+        </>}></Route>
+      </Routes>
+    </>
   )
 }
 

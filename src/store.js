@@ -1,4 +1,5 @@
 import { configureStore, createSlice, current } from '@reduxjs/toolkit'
+import { useParams } from 'react-router-dom'
 
 
 let user = createSlice({
@@ -14,6 +15,11 @@ let user = createSlice({
         title: "신나게놀기",
         body: "1월 1일부터 12월 31일까지 놀기",
         isDone: false
+    }, {
+        id: 2, // id는 모두 고유값이어야 합니다.
+        title: "과제 완성하기",
+        body: "목요일 이전까지 lv3완료하기",
+        isDone: false
     }],
 
 
@@ -23,13 +29,7 @@ let user = createSlice({
             state[action.payload].isDone = !state[action.payload].isDone
         },
         deleteCardBox(state, action) {
-            state = state.filter((item) => {
-                if (item.id !== action.payload) {
-                    return {
-                        ...item
-                    }
-                } console.log(current(item))
-            })
+
 
         },
         addCardBox(state, action) {

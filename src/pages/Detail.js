@@ -38,20 +38,26 @@ function Detail() {
 
   const navigate = useNavigate();
 
+
+
   // const matchItem = item.find((x) => {
   //     return x.id === +id;
   // })
-  const params = useParams();
+  const { id } = useParams();
 
+  const foundTodo = state.find((x) => {
+    return x.id === +id
+  })
 
+  console.log(foundTodo)
   return (
     < DetailContainer >
       <DetailBox>
-        ID:0 <DetailButton onClick={() => {
+        ID:{foundTodo.id} <DetailButton onClick={() => {
           navigate('/');
         }}>이전으로</DetailButton>
-        <h2>ㅎㅎㅎ</h2>
-        <p>헤헤</p>
+        <h2>{foundTodo.title}</h2>
+        <p>{foundTodo.body}</p>
       </DetailBox>
     </DetailContainer >
 
