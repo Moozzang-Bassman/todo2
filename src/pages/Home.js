@@ -1,6 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeIsDone } from '../store'
+
+
 
 const StBox = styled.div`
 background-color: #EEEEEE;
@@ -74,11 +78,20 @@ align-items: center;
 flex-direction: row;
 gap: 10px;
 `
+const StSpan = styled.span`
+cursor: pointer;
+`
 
 
 function Home() {
+
+    let a = useSelector((state) => { return state });
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    console.log(a.user)
     return (
         <>
+
             <StBox>
                 <StP>제목</StP><StInputBox width='200px'></StInputBox>
                 <StP>내용</StP><StInputBox width='200px'></StInputBox>
@@ -88,19 +101,80 @@ function Home() {
 
                 <h2>Working..🏋🏿‍♂️</h2>
                 <CardContainer>
-                    <CardBox>
-                        <Link to='/detail'>상세보기</Link>
-                        <h2>리액트</h2>
-                        <p>리액트를 배워봅시다</p>
+                    {a.user.filter((item) => {
+                        return (item.isDone === false)
+                    }).map((item) => {
+                        return <CardBox>
+                            <StSpan onClick={() => {
+                                navigate('/detail')
+                            }}>상세보기</StSpan>
+                            <h2>{item.title}</h2>
+                            <p>{item.body}</p>
+                            <CardWrap>
+                                <CardButton bodercolor='red'>삭제하기</CardButton>
+                                <CardButton bodercolor='green' onClick={() => {
+
+                                    dispatch(changeIsDone(item.id))
+                                }}>{item.isDone === false ? '완료하기' : '취소하기'}</CardButton>
+                            </CardWrap>
+                        </CardBox>
+                    })}
+
+                    {/* {a.user.isDone === false ? <CardBox>
+                        <StSpan onClick={() => {
+                            navigate('/detail')
+                        }}>상세보기</StSpan>
+                        <h2>{a.user.title}</h2>
+                        <p>{a.user.body}</p>
                         <CardWrap>
                             <CardButton bodercolor='red'>삭제하기</CardButton>
-                            <CardButton bodercolor='green'>완료하기</CardButton>
+                            <CardButton bodercolor='green' onClick={() => {
+                                dispatch(changeIsDone())
+                            }}>{a.user.isDone === false ? '완료하기' : '취소하기'}</CardButton>
                         </CardWrap>
                     </CardBox>
+                        : null} */}
+
+                    {/* <CardBox>
+                        <StSpan onClick={() => {
+                            navigate('/detail')
+                        }}>상세보기</StSpan>
+                        <h2>{a.user.title}</h2>
+                        <p>{a.user.body}</p>
+                        <CardWrap>
+                            <CardButton bodercolor='red'>삭제하기</CardButton>
+                            <CardButton bodercolor='green' onClick={() => {
+                                dispatch(changeIsDone())
+                            }}>{a.user.isDone === false ? '완료하기' : '취소하기'}</CardButton>
+                        </CardWrap>
+                    </CardBox> */}
+
+
+
                 </CardContainer>
 
                 <h2>Done..!🛀🏿</h2>
                 <CardContainer>
+                    {a.user.filter((item) => {
+                        return (item.isDone === true)
+                    }).map((item) => {
+                        return <CardBox>
+                            <StSpan onClick={() => {
+                                navigate('/detail')
+                            }}>상세보기</StSpan>
+                            <h2>{item.title}</h2>
+                            <p>{item.body}</p>
+                            <CardWrap>
+                                <CardButton bodercolor='red'>삭제하기</CardButton>
+                                <CardButton bodercolor='green' onClick={() => {
+
+                                    dispatch(changeIsDone(item.id))
+                                }}>{item.isDone === false ? '완료하기' : '취소하기'}</CardButton>
+                            </CardWrap>
+                        </CardBox>
+                    })}
+
+
                 </CardContainer>
             </StInnerBox></>
     )
