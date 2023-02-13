@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { changeIsDone } from './store'
 import { deleteCardBox } from './store'
 import { addCardBox } from './store'
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -92,6 +93,7 @@ cursor: pointer;
 
 function App() {
 
+
   let state = useSelector((state) => { return state });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -116,7 +118,7 @@ function App() {
                 alert('공백발생')
               } else {
                 dispatch(addCardBox({
-
+                  id: uuidv4(),
                   title: title,
                   body: desc,
                   isDone: false

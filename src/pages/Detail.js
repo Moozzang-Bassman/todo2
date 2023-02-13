@@ -8,7 +8,9 @@ const DetailContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-
+  background-image: url('http://res.heraldm.com/content/image/2016/07/08/20160708000188_0.jpg');
+  background-size: cover;
+background-position: center;
   `
 const DetailBox = styled.div`
 
@@ -37,19 +39,12 @@ function Detail() {
   let state = useSelector((state) => state.user);
 
   const navigate = useNavigate();
-
-
-
-  // const matchItem = item.find((x) => {
-  //     return x.id === +id;
-  // })
   const { id } = useParams();
 
   const foundTodo = state.find((x) => {
-    return x.id === +id
+    return x.id === id;
   })
 
-  console.log(foundTodo)
   return (
     < DetailContainer >
       <DetailBox>
