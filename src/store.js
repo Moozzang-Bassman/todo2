@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
+import { configureStore, createSlice, current } from '@reduxjs/toolkit'
 
 
 let user = createSlice({
@@ -12,20 +12,33 @@ let user = createSlice({
     {
         id: 1, // id는 모두 고유값이어야 합니다.
         title: "신나게놀기",
-        body: "1월 1일부터 12월 31일까지 플레이",
+        body: "1월 1일부터 12월 31일까지 놀기",
         isDone: false
-    },],
+    }],
 
 
     reducers: {
         changeIsDone(state, action) {
 
             state[action.payload].isDone = !state[action.payload].isDone
+        },
+        deleteCardBox(state, action) {
+            state.filter((item) => {
+                if (item.id !== action.payload) {
+                    console.log(current(item))
+                }
+            })
+        },
+        addCardBox(state, action) {
 
+
+            state.unshift(action.payload)
+            // console.log(current(state))
         }
     }
 })
-export let { changeIsDone } = user.actions
+
+export let { changeIsDone, deleteCardBox, addCardBox } = user.actions
 
 
 export default configureStore({

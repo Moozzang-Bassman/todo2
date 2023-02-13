@@ -33,7 +33,7 @@ const DetailButton = styled.button`
 
 function Detail() {
 
-    // let a = useSelector((state) => state.user);
+    let a = useSelector((state) => state.user);
 
     const navigate = useNavigate();
 

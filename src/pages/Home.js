@@ -1,8 +1,9 @@
-import React from 'react'
+
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeIsDone } from '../store'
+import { addCardBox, changeIsDone, deleteCardBox } from '../store'
+import { useEffect, useState } from 'react'
 
 
 
@@ -88,14 +89,36 @@ function Home() {
     let a = useSelector((state) => { return state });
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log(a.user)
+    const [title, setTitle] = useState('');
+    const [desc, setDesc] = useState('');
+
     return (
         <>
 
             <StBox>
-                <StP>제목</StP><StInputBox width='200px'></StInputBox>
-                <StP>내용</StP><StInputBox width='200px'></StInputBox>
-                <StButton>안녕하쇼</StButton>
+                <StP>제목</StP><StInputBox value={title} onChange={(e) => {
+                    setTitle(e.target.value)
+                }} width='200px'></StInputBox>
+                <StP>내용</StP><StInputBox value={desc} onChange={(e) => {
+                    setDesc(e.target.value)
+                }} width='200px'></StInputBox>
+                <StButton onClick={() => {
+
+                    if (!title || !desc) {
+                        alert('공백발생')
+                    } else {
+                        dispatch(addCardBox({
+
+                            title: title,
+                            body: desc,
+                            isDone: false
+                        }))
+                        setDesc('');
+                        setTitle('');
+                    }
+                }
+                }
+                >안녕하쇼</StButton>
             </StBox>
             <StInnerBox>
 
@@ -107,11 +130,14 @@ function Home() {
                         return <CardBox>
                             <StSpan onClick={() => {
                                 navigate('/detail')
+
                             }}>상세보기</StSpan>
                             <h2>{item.title}</h2>
                             <p>{item.body}</p>
                             <CardWrap>
-                                <CardButton bodercolor='red'>삭제하기</CardButton>
+                                <CardButton onClick={() => {
+                                    dispatch(deleteCardBox(item.id))
+                                }} bodercolor='red'>삭제하기</CardButton>
                                 <CardButton bodercolor='green' onClick={() => {
 
                                     dispatch(changeIsDone(item.id))
