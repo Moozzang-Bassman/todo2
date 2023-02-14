@@ -140,7 +140,8 @@ function App() {
                 return <CardBox key={item.id}>
                   <StSpan onClick={() => {
                     navigate(`/detail/${item.id}`)
-
+                    setTitle('')
+                    setDesc('')
                   }}>상세보기</StSpan>
                   <h2>{item.title}</h2>
                   <p>{item.body}</p>
@@ -155,38 +156,6 @@ function App() {
                   </CardWrap>
                 </CardBox>
               })}
-
-              {/* {a.user.isDone === false ? <CardBox>
-                        <StSpan onClick={() => {
-                            navigate('/detail')
-                        }}>상세보기</StSpan>
-                        <h2>{a.user.title}</h2>
-                        <p>{a.user.body}</p>
-                        <CardWrap>
-                            <CardButton bodercolor='red'>삭제하기</CardButton>
-                            <CardButton bodercolor='green' onClick={() => {
-                                dispatch(changeIsDone())
-                            }}>{a.user.isDone === false ? '완료하기' : '취소하기'}</CardButton>
-                        </CardWrap>
-                    </CardBox>
-                        : null} */}
-
-              {/* <CardBox>
-                        <StSpan onClick={() => {
-                            navigate('/detail')
-                        }}>상세보기</StSpan>
-                        <h2>{a.user.title}</h2>
-                        <p>{a.user.body}</p>
-                        <CardWrap>
-                            <CardButton bodercolor='red'>삭제하기</CardButton>
-                            <CardButton bodercolor='green' onClick={() => {
-                                dispatch(changeIsDone())
-                            }}>{a.user.isDone === false ? '완료하기' : '취소하기'}</CardButton>
-                        </CardWrap>
-                    </CardBox> */}
-
-
-
             </CardContainer>
 
             <h2>Done..!🛀🏿</h2>
@@ -197,13 +166,16 @@ function App() {
                 return <CardBox key={item.id}>
                   <StSpan onClick={() => {
                     navigate(`/detail/${item.id}`)
+                    setTitle('')
+                    setDesc('')
                   }}>상세보기</StSpan>
                   <h2>{item.title}</h2>
                   <p>{item.body}</p>
                   <CardWrap>
-                    <CardButton bodercolor='red'>삭제하기</CardButton>
+                    <CardButton bodercolor='red' onClick={() => {
+                      dispatch(deleteCardBox(item.id))
+                    }}>삭제하기</CardButton>
                     <CardButton bodercolor='green' onClick={() => {
-
                       dispatch(changeIsDone(item.id))
                     }}>{item.isDone === false ? '완료하기' : '취소하기'}</CardButton>
                   </CardWrap>

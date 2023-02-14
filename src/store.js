@@ -34,8 +34,9 @@ let user = createSlice({
 
         },
         deleteCardBox(state, action) {
+            const newState = state.filter((item) => item.id !== action.payload)
 
-
+            return newState
         },
         addCardBox(state, action) {
 
