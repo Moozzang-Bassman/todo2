@@ -2,7 +2,7 @@ import { configureStore, createSlice, current } from '@reduxjs/toolkit'
 
 
 
-let user = createSlice({
+const user = createSlice({
 
     name: 'card',
     initialState: [{
@@ -16,7 +16,8 @@ let user = createSlice({
         title: "신나게놀기",
         body: "1월 1일부터 12월 31일까지 놀기",
         isDone: false
-    }, {
+    },
+    {
         id: '75066d69-b360-41d0-8b42-6715d147bc81',
         // id는 모두 고유값이어야 합니다.
         title: "과제 완성하기",
@@ -32,22 +33,24 @@ let user = createSlice({
             })
             foundTodo.isDone = !foundTodo.isDone
 
+
         },
         deleteCardBox(state, action) {
+
             const newState = state.filter((item) => item.id !== action.payload)
 
-            return newState
+            return newState;
         },
         addCardBox(state, action) {
 
 
             state.unshift(action.payload)
-            // console.log(current(state))
+
         }
     }
 })
 
-export let { changeIsDone, deleteCardBox, addCardBox } = user.actions
+export const { changeIsDone, deleteCardBox, addCardBox } = user.actions
 
 
 export default configureStore({
